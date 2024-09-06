@@ -1,0 +1,5 @@
+---
+- name: Role testing.
+  hosts: localhost
+  roles:
+    - anhquantrl.mac.commandlinetools

@@ -1,0 +1,7 @@
+---
+# tasks file for commandlinetools
+
+- name: Ensure Managed node is running Mac OS X
+  ansible.builtin.fail:
+    msg: Managed node is not running Mac OS X
+  when: ansible_distribution != 'MacOSX'
