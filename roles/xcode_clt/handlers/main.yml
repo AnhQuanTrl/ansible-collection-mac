@@ -1,0 +1,7 @@
+---
+# handlers file for xcode_clt
+
+- name: Cleanup
+  ansible.builtin.file:
+    path: /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+    state: absent

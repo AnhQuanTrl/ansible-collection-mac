@@ -1,5 +1,5 @@
 ---
-name: Commandlinetools CI
+name: CI
 
 on:
   push:
@@ -35,6 +35,9 @@ jobs:
         run: |
           sudo pip3 install --upgrade pip
           sudo pip3 install ansible-core
+
+      - name: Uninstall CLT
+        run: scripts/uninstall-clt.sh
 
       - name: Set up the test environment.
         run: |

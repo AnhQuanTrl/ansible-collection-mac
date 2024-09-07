@@ -1,0 +1,39 @@
+---
+# tasks file for xcode_clt
+
+- name: Ensure Managed node is running Mac OS X
+  ansible.builtin.fail:
+    msg: Managed node is not running Mac OS X
+  when: ansible_distribution != 'MacOSX'
+
+- name: Check if Command Line Tools are already installed
+  ansible.builtin.stat:
+    path: "{{ clt_path }}"
+  register: clt
+
+#
+# The process for installing in headless mode is in https://github.com/Homebrew/install/blob/3a01bb25a0af73d908389264353691c2d87f7984/install.sh#L813
+#
+- name: Prepare to install Command Line Tools
+  ansible.builtin.file:
+    path: /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+    state: touch
+  when: not clt.stat.exists
+
+- name: Check for CLT in Software Updates
+  shell: >
+    softwareupdate -l |
+    grep -B 1 -E 'Command Line Tools' |
+    awk -F'*' '/^ *\*/ {print $2}' |
+    sed -e 's/^ *Label: //' -e 's/^ *//' |
+    sort -V |
+    tail -n1
+  register: su_list
+  when: not clt.stat.exists
+  changed_when: false
+
+- name: Install XCode Command Line Tools
+  shell: softwareupdate -i "{{ su_list.stdout }}"
+  when: su_list is not skipped
+  become: true
+  notify: Cleanup

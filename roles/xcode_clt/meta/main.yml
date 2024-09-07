@@ -1,6 +1,6 @@
 galaxy_info:
   author: AnhQuanTrl
-  role_name: commandlinetools
+  role_name: xcode_clt
   description: Install XCode command line tools.
   company: none
 
