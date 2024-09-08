@@ -5,8 +5,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - roles/commandlinetools/*
   workflow_dispatch:
 
 defaults:
@@ -31,18 +29,22 @@ jobs:
       - name: Uninstall GitHub Actions' built-in Homebrew.
         run: scripts/uninstall-homebrew.sh
 
+      - name: Uninstall GitHub Actions' built-in browser installs.
+        run: |
+          sudo rm -rf /Applications/Firefox.app
+          sudo rm -rf /Applications/Google\ Chrome.app
+
       - name: Install test dependencies.
         run: |
           sudo pip3 install --upgrade pip
           sudo pip3 install ansible-core
 
-      - name: Uninstall CLT
-        run: scripts/uninstall-clt.sh
-
       - name: Set up the test environment.
         run: |
           cp ./tests/ansible.cfg ./ansible.cfg
           cp ./tests/inventory ./inventory
+          cp ./tests/requirements.yml ./requirements.yml
+          ansible-galaxy install -r requirements.yml
 
       - name: Test the playbook's syntax.
         run: ansible-playbook ./tests/test.yml --syntax-check

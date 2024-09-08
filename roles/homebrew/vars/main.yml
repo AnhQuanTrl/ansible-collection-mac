@@ -1,0 +1,24 @@
+---
+# vars file for homebrew
+
+homebrew_prefix: "/opt/homebrew"
+homebrew_brew_bin_path: "{{ homebrew_prefix }}/bin"
+
+homebrew_folders:
+  - bin
+  - etc
+  - include
+  - lib
+  - sbin
+  - share
+  - var
+  - opt
+  - var/homebrew
+  - var/homebrew/linked
+  - Cellar
+  - Caskroom
+  - Frameworks
+
+homebrew_folders_user_only:
+  - share/zsh
+  - share/zsh/site-functions

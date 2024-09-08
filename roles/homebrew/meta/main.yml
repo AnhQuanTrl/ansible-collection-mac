@@ -1,7 +1,7 @@
 galaxy_info:
   author: AnhQuanTrl
   role_name: xcode_clt
-  description: Install XCode command line tools.
+  description: Manage installation of Homebrew and its packages, taps and cask apps.
   company: none
 
   # If the issue tracker for your role is not on github, uncomment the
