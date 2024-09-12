@@ -1,0 +1,5 @@
+---
+# vars file for homebrew
+
+homebrew_prefix: "/opt/homebrew"
+homebrew_brew_bin_path: "{{ homebrew_prefix }}/bin"

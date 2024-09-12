@@ -1,7 +1,7 @@
 galaxy_info:
   author: AnhQuanTrl
-  role_name: homebrew
-  description: Manage installation of Homebrew and its packages, taps and cask apps.
+  role_name: neovim
+  description: Manage installation of Neovim using Bob (Neovim Version Manager).
   company: none
 
   # If the issue tracker for your role is not on github, uncomment the

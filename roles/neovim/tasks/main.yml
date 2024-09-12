@@ -1,0 +1,27 @@
+---
+# tasks file for homebrew
+- name: Ensure bob is installed.
+  homebrew:
+    name: bob
+    state: present
+
+- name: Check current neovim version
+  shell: "{{ homebrew_brew_bin_path }}/bob ls | grep Used | awk -F'[| ]+' '{ print $2 }'"
+  register: current_neovim_version
+  changed_when: false
+
+- name: Set GITHUB_TOKEN environment variable
+  set_fact:
+    github_token_env:
+      GITHUB_TOKEN: "{{ neovim_github_token }}"
+  when: neovim_github_token is defined
+
+- name: Install neovim version.
+  command: "{{ homebrew_brew_bin_path }}/bob install {{ neovim_version }}"
+  register: neovim_installation
+  changed_when: neovim_installation.stdout is not search("already installed") and neovim_installation.stdout is not search("up to date")
+  environment: "{{ github_token_env | default({}) }}"
+
+- name: Use neovim version.
+  command: "{{ homebrew_brew_bin_path }}/bob use {{ neovim_version }}"
+  when: current_neovim_version.stdout | trim != neovim_version

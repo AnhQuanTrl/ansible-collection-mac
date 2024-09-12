@@ -53,6 +53,7 @@ jobs:
         run: ansible-playbook ./tests/test.yml
         env:
           ANSIBLE_FORCE_COLOR: "1"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Idempotence check.
         run: |
@@ -61,3 +62,4 @@ jobs:
           tail ${idempotence} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
         env:
           ANSIBLE_FORCE_COLOR: "1"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -15,5 +15,9 @@
       - name: denji/nginx
         url: "https://github.com/denji/homebrew-nginx.git"
 
+    neovim_version: nightly
+    neovim_github_token: "{{ lookup('env', 'GITHUB_TOKEN') }}"
+
   roles:
     - anhquantrl.mac.homebrew
+    - anhquantrl.mac.neovim

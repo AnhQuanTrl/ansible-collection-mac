@@ -1,0 +1,3 @@
+---
+# defaults file for homebrew
+neovim_version: stable
